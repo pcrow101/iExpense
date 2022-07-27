@@ -22,11 +22,12 @@ struct ContentView: View {
                                 .font(.headline)
                             Text(item.type)
                         }
+
                         Spacer()
 
-                        Text(item.amount, format: .currency(code: "USD"))
+                        Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                            .foregroundColor(item.amount < 10 ? .green : (item.amount < 100 ? .blue : .red))
                     }
-
                 }
                 .onDelete(perform: removeItems)
             }
@@ -42,7 +43,6 @@ struct ContentView: View {
                 AddView(expenses: expenses)
             }
         }
-
     }
 
     func removeItems(at offsets: IndexSet) {
